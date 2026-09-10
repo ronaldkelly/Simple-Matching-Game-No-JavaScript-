@@ -1,0 +1,1589 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  overflow-x: hidden;
+}
+body > input{
+  display: none;
+}
+nav ul label{
+  cursor: pointer;
+}
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 120px;
+  background-color: #F8ED8C;
+}
+header a{
+  text-decoration: none;
+}
+header h1{
+  font-size: 40px;
+  color: #FF8989;
+}
+header h1 span{
+  color: #89AC46;
+}
+.howtoplay h1:nth-child(3) span{
+  color: #F8ED8C;
+  text-shadow: 3px 3px 10px black;
+}
+
+select{
+  padding: 10px 0px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 3px solid #89AC46;
+  background-color: #cdff6f;
+}
+
+nav{
+  margin: 20px 0px;
+}
+nav ul{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+}
+nav ul a{
+  text-decoration: none;
+  color: white;
+}
+nav ul li{
+  list-style: none;
+  margin: 0px 20px;
+  padding: 10px 20px;
+  background-color: rgb(211, 230, 113);
+  color: white;
+  border-radius: 10px;
+  font-size: 25px;
+  transition: all 0.15s;
+}
+nav ul li:hover{
+  background-color: rgba(211, 230, 113, 0.6);
+}
+
+main{
+  width: 200%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: all 1s;
+}
+main section{
+  width: 48%;
+  height: 100%;
+  border-radius: 10px;
+}
+#first-section:checked ~ main{
+  transform: translateX(0);
+}
+#second-section:checked ~ main{
+  transform: translateX(-50%);
+}
+.playgame{
+  box-shadow: 0px 0px 10px 3px black inset;
+}
+.howtoplay{
+  background-color: #FF8989;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.howtoplay div h1{
+  margin: 30px 0px;
+  color: white;
+  font-size: 40px;
+}
+.howtoplay div h1 span{
+  color: red;
+}
+.grid-game label{
+  cursor: pointer;
+}
+.grid-game > div{
+  height: calc(100% - 40px);
+  width: calc(100% - 40px);
+}
+.grid-game > div > div{
+  width: 100%;
+  height: 100%;
+}
+.grid-game{
+  width: 100%;
+  height: 100%;
+  background-color: #FF8989;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(2, 250px);
+  justify-items: center;
+  align-items: center;
+}
+.grid-game > label{
+  width: 100%;
+  height: 100%;
+}
+.card-container{
+  width: 100%;
+  height: 100%;
+}
+.card{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1s;
+}
+.front, .back{
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+.front{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  color: black;
+  background-color: white;
+}
+.back{
+  background-color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+}
+.playgame:not(.playgame-cb) .back img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+body:has(#cb-mode:checked) .playgame{
+  display: none;
+}
+body:has(#cb-mode:checked) .playgame-cb{
+  display: block;
+}
+body:has(#cb-mode:checked) .howtoplay{
+  display: none;
+}
+body:has(#cb-mode:checked) .howtoplay-cb{
+  display: flex;
+}
+
+.howtoplay-cb{
+  display: none;
+}
+.playgame-cb{
+  display: none;
+}
+
+.playgame-cb .back img{
+  height: 100%;
+  border-radius: 10px;
+}
+
+
+
+
+
+/* .losebanana .front{background-color: red;}
+.losestrawberry .front{background-color: rgb(55, 255, 0);}
+.loseapple .front{background-color: rgb(0, 187, 255);}
+.loseorange .front{background-color: rgb(0, 34, 255);}
+.losekiwi .front{background-color: rgb(251, 255, 0);}
+.loselemon .front{background-color: rgb(114, 0, 65);}
+.losepapaya .front{background-color: rgb(255, 204, 0);}
+.losewatermelon .front{background-color: rgb(255, 0, 123);} */
+
+
+
+
+.win1{
+  position: absolute;
+  opacity: 0;
+}
+.losebanana,
+.losestrawberry,
+.loseapple,
+.loseorange,
+.losekiwi,
+.loselemon,
+.losepapaya,
+.losewatermelon{
+  position: absolute;
+  opacity: 0;
+}
+.first-moves{
+  z-index: 2;
+}
+.grid-game > div {
+  position: relative;
+}
+.grid-game .first-moves{
+  position: absolute;
+}
+#second-section:checked ~ main .grid-game .first-moves .card{
+  animation: see 2s 0.5s;
+}
+
+@keyframes see {
+  from{
+    transform: rotateY(0deg);  
+  }
+  50%{
+    transform: rotateY(180deg);  
+  }
+  to{
+    transform: rotateY(0deg);  
+  }
+}
+@keyframes lost {
+  from{
+    transform: rotateY(0deg);
+  }
+  50%{
+    transform: rotateY(180deg);  
+  }
+  to{
+    transform: rotateY(0deg);  
+  }
+}
+@keyframes first-moves-opacity {
+  from{
+    opacity: 0;
+  }
+  80%{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+
+
+/* dito na tayo sa nakakamatay na part
+ay namatay na pala ako nung iba ang pinili niya */
+
+
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+/* dito po nag first move yung banana kasi torpe si lemon */
+#first-move-banana:checked ~ main .grid-game .banana-first{
+  z-index: 3;
+}
+#first-move-banana:checked ~ main .grid-game .banana-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-banana:checked ~ main .grid-game .losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-banana:checked ~ main .grid-game .first-moves:not(.banana-first){
+  opacity: 0;
+}
+#first-move-banana:checked ~ main .grid-game .lemon-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-lemon:checked ~ main .grid-game .banana-first{
+  opacity: 0;
+}
+#first-move-banana:checked ~ main .grid-game .banana-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-lemon:checked ~ main .grid-game .lemon-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-lemon:checked ~ main .grid-game .banana-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-lemon:checked ~ main .grid-game .lemon-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-lemon:checked ~ main .grid-game .banana-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-lemon:checked ~ main .grid-game .first-moves:not(.banana-first, .lemon-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-lemon:checked ~ main .grid-game .losebanana{
+  opacity: 0;
+  z-index: 2;
+}
+
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+/* dito first move si lemon */
+#first-move-lemon:checked ~ main .grid-game .lemon-first{
+  z-index: 3;
+}
+#first-move-lemon:checked ~ main .grid-game .lemon-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-lemon:checked ~ main .grid-game .loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-lemon:checked ~ main .grid-game .first-moves:not(.lemon-first){
+  opacity: 0;
+}
+#first-move-lemon:checked ~ main .grid-game .banana-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-banana:checked ~ main .grid-game .lemon-first{
+  opacity: 0;
+}
+#first-move-lemon:checked ~ main .grid-game .lemon-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-banana:checked ~ main .grid-game .banana-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-banana:checked ~ main .grid-game .lemon-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-banana:checked ~ main .grid-game .banana-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-banana:checked ~ main .grid-game .lemon-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-banana:checked ~ main .grid-game .first-moves:not(.banana-first, .lemon-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-banana:checked ~ main .grid-game .loselemon{
+  opacity: 0;
+  z-index: 2;
+}
+
+
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+/* dito first move si strawberry */
+#first-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  z-index: 3;
+}
+#first-move-strawberry:checked ~ main .grid-game .strawberry-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-strawberry:checked ~ main .grid-game .losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-strawberry:checked ~ main .grid-game .first-moves:not(.strawberry-first){
+  opacity: 0;
+}
+#first-move-strawberry:checked ~ main .grid-game .apple-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-apple:checked ~ main .grid-game .strawberry-first{
+  opacity: 0;
+}
+#first-move-strawberry:checked ~ main .grid-game .strawberry-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-apple:checked ~ main .grid-game .apple-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-apple:checked ~ main .grid-game .strawberry-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-apple:checked ~ main .grid-game .apple-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-apple:checked ~ main .grid-game .strawberry-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-apple:checked ~ main .grid-game .first-moves:not(.apple-first, .strawberry-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-apple:checked ~ main .grid-game .losestrawberry{
+  opacity: 0;
+  z-index: 2;
+}
+
+
+
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+/* dito first move si apple */
+#first-move-apple:checked ~ main .grid-game .apple-first{
+  z-index: 3;
+}
+#first-move-apple:checked ~ main .grid-game .apple-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-apple:checked ~ main .grid-game .loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-apple:checked ~ main .grid-game .first-moves:not(.apple-first){
+  opacity: 0;
+}
+#first-move-apple:checked ~ main .grid-game .strawberry-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-strawberry:checked ~ main .grid-game .apple-first{
+  opacity: 0;
+}
+#first-move-apple:checked ~ main .grid-game .apple-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-strawberry:checked ~ main .grid-game .apple-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-strawberry:checked ~ main .grid-game .apple-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-strawberry:checked ~ main .grid-game .first-moves:not(.apple-first, .strawberry-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-strawberry:checked ~ main .grid-game .loseapple{
+  opacity: 0;
+  z-index: 2;
+}
+#win1-move-strawberry:checked ~ main .grid-game .strawberry-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-strawberry:checked ~ main .grid-game .strawberry-win1 .card{
+  transform: rotateY(180deg);
+}
+
+
+
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+/* dito first move si orange */
+#first-move-orange:checked ~ main .grid-game .orange-first{
+  z-index: 3;
+}
+#first-move-orange:checked ~ main .grid-game .orange-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-orange:checked ~ main .grid-game .loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-orange:checked ~ main .grid-game .first-moves:not(.orange-first){
+  opacity: 0;
+}
+#first-move-orange:checked ~ main .grid-game .papaya-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-papaya:checked ~ main .grid-game .orange-first{
+  opacity: 0;
+}
+#first-move-orange:checked ~ main .grid-game .orange-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-papaya:checked ~ main .grid-game .orange-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-papaya:checked ~ main .grid-game .orange-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-papaya:checked ~ main .grid-game .first-moves:not(.orange-first, .papaya-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-papaya:checked ~ main .grid-game .loseorange{
+  opacity: 0;
+  z-index: 2;
+}
+#win1-move-papaya:checked ~ main .grid-game .papaya-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-papaya:checked ~ main .grid-game .papaya-win1 .card{
+  transform: rotateY(180deg);
+}
+
+
+
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+/* dito first move si papaya */
+#first-move-papaya:checked ~ main .grid-game .papaya-first{
+  z-index: 3;
+}
+#first-move-papaya:checked ~ main .grid-game .papaya-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-papaya:checked ~ main .grid-game .losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-papaya:checked ~ main .grid-game .first-moves:not(.papaya-first){
+  opacity: 0;
+}
+#first-move-papaya:checked ~ main .grid-game .orange-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-orange:checked ~ main .grid-game .papaya-first{
+  opacity: 0;
+}
+#first-move-papaya:checked ~ main .grid-game .papaya-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-orange:checked ~ main .grid-game .papaya-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-orange:checked ~ main .grid-game .papaya-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-orange:checked ~ main .grid-game .first-moves:not(.papaya-first, .orange-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-orange:checked ~ main .grid-game .losepapaya{
+  opacity: 0;
+  z-index: 2;
+}
+#win1-move-orange:checked ~ main .grid-game .orange-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-orange:checked ~ main .grid-game .orange-win1 .card{
+  transform: rotateY(180deg);
+}
+
+
+
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+/* dito first move si kiwi */
+#first-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  z-index: 3;
+}
+#first-move-kiwi:checked ~ main .grid-game .kiwi-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-kiwi:checked ~ main .grid-game .losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-kiwi:checked ~ main .grid-game .first-moves:not(.kiwi-first){
+  opacity: 0;
+}
+#first-move-kiwi:checked ~ main .grid-game .watermelon-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-watermelon:checked ~ main .grid-game .kiwi-first{
+  opacity: 0;
+}
+#first-move-kiwi:checked ~ main .grid-game .kiwi-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-watermelon:checked ~ main .grid-game .kiwi-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-watermelon:checked ~ main .grid-game .kiwi-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-watermelon:checked ~ main .grid-game .first-moves:not(.kiwi-first, .watermelon-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-watermelon:checked ~ main .grid-game .losekiwi{
+  opacity: 0;
+  z-index: 2;
+}
+#win1-move-watermelon:checked ~ main .grid-game .watermelon-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-watermelon:checked ~ main .grid-game .watermelon-win1 .card{
+  transform: rotateY(180deg);
+}
+
+
+
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+/* dito first move si watermelon */
+#first-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  z-index: 3;
+}
+#first-move-watermelon:checked ~ main .grid-game .watermelon-first .card{
+  transform: rotateY(180deg);
+}
+#first-move-watermelon:checked ~ main .grid-game .losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#first-move-watermelon:checked ~ main .grid-game .first-moves:not(.watermelon-first){
+  opacity: 0;
+}
+#first-move-watermelon:checked ~ main .grid-game .kiwi-win1{
+  opacity: 1;
+  z-index: 3;
+}
+#win1-move-kiwi:checked ~ main .grid-game .watermelon-first{
+  opacity: 0;
+}
+#first-move-watermelon:checked ~ main .grid-game .watermelon-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-kiwi:checked ~ main .grid-game .watermelon-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-kiwi:checked ~ main .grid-game .watermelon-win1 .card{
+  transform: rotateY(180deg);
+}
+#win1-move-kiwi:checked ~ main .grid-game .first-moves:not(.watermelon-first, .kiwi-first){
+  z-index: 3;
+  opacity: 1;
+}
+#win1-move-kiwi:checked ~ main .grid-game .losewatermelon{
+  opacity: 0;
+  z-index: 2;
+}
+#win1-move-kiwi:checked ~ main .grid-game .kiwi-win1{
+  z-index: 1000;
+  opacity: 1;
+}
+#win1-move-kiwi:checked ~ main .grid-game .kiwi-win1 .card{
+  transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+/* Losing banana first game opo yes po opo */
+#losebanana-move-strawberry:checked ~ main .grid-game .strawberry-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-strawberry:checked ~ main .grid-game .strawberry-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losebanana-move-apple:checked ~ main .grid-game .apple-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-apple:checked ~ main .grid-game .apple-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losebanana-move-orange:checked ~ main .grid-game .orange-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-orange:checked ~ main .grid-game .orange-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losebanana-move-kiwi:checked ~ main .grid-game .kiwi-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-kiwi:checked ~ main .grid-game .kiwi-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losebanana-move-papaya:checked ~ main .grid-game .papaya-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-papaya:checked ~ main .grid-game .papaya-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losebanana-move-watermelon:checked ~ main .grid-game .watermelon-losebanana{
+  z-index: 3;
+  opacity: 1;
+}
+#losebanana-move-watermelon:checked ~ main .grid-game .watermelon-losebanana .card{
+  animation: lost 1.5s;
+}
+#losebanana-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+
+#losebanana-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losebanana-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losebanana-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losebanana-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losebanana-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losebanana-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+/* Losing lemon first game opo yes po opo */
+#loselemon-move-strawberry:checked ~ main .grid-game .strawberry-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-strawberry:checked ~ main .grid-game .strawberry-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-apple:checked ~ main .grid-game .apple-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-apple:checked ~ main .grid-game .apple-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-orange:checked ~ main .grid-game .orange-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-orange:checked ~ main .grid-game .orange-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-kiwi:checked ~ main .grid-game .kiwi-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-kiwi:checked ~ main .grid-game .kiwi-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-papaya:checked ~ main .grid-game .papaya-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-papaya:checked ~ main .grid-game .papaya-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-watermelon:checked ~ main .grid-game .watermelon-loselemon{
+  z-index: 3;
+  opacity: 1;
+}
+#loselemon-move-watermelon:checked ~ main .grid-game .watermelon-loselemon .card{
+  animation: lost 1.5s;
+}
+#loselemon-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loselemon-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loselemon-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loselemon-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loselemon-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loselemon-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loselemon-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+/* Losing strawberry first game opo yes po opo */
+#losestrawberry-move-banana:checked ~ main .grid-game .banana-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-banana:checked ~ main .grid-game .banana-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-lemon:checked ~ main .grid-game .lemon-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-lemon:checked ~ main .grid-game .lemon-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-orange:checked ~ main .grid-game .orange-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-orange:checked ~ main .grid-game .orange-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-kiwi:checked ~ main .grid-game .kiwi-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-kiwi:checked ~ main .grid-game .kiwi-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-papaya:checked ~ main .grid-game .papaya-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-papaya:checked ~ main .grid-game .papaya-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-watermelon:checked ~ main .grid-game .watermelon-losestrawberry{
+  z-index: 3;
+  opacity: 1;
+}
+#losestrawberry-move-watermelon:checked ~ main .grid-game .watermelon-losestrawberry .card{
+  animation: lost 1.5s;
+}
+#losestrawberry-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losestrawberry-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losestrawberry-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losestrawberry-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losestrawberry-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losestrawberry-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losestrawberry-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+/* Losing apple first game opo yes po opo */
+#loseapple-move-banana:checked ~ main .grid-game .banana-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-banana:checked ~ main .grid-game .banana-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-lemon:checked ~ main .grid-game .lemon-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-lemon:checked ~ main .grid-game .lemon-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-orange:checked ~ main .grid-game .orange-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-orange:checked ~ main .grid-game .orange-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-kiwi:checked ~ main .grid-game .kiwi-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-kiwi:checked ~ main .grid-game .kiwi-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-papaya:checked ~ main .grid-game .papaya-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-papaya:checked ~ main .grid-game .papaya-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-watermelon:checked ~ main .grid-game .watermelon-loseapple{
+  z-index: 3;
+  opacity: 1;
+}
+#loseapple-move-watermelon:checked ~ main .grid-game .watermelon-loseapple .card{
+  animation: lost 1.5s;
+}
+#loseapple-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseapple-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseapple-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseapple-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseapple-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseapple-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseapple-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+/* Losing orange first game opo yes po opo */
+#loseorange-move-banana:checked ~ main .grid-game .banana-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-banana:checked ~ main .grid-game .banana-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-lemon:checked ~ main .grid-game .lemon-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-lemon:checked ~ main .grid-game .lemon-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-strawberry:checked ~ main .grid-game .strawberry-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-strawberry:checked ~ main .grid-game .strawberry-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-kiwi:checked ~ main .grid-game .kiwi-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-kiwi:checked ~ main .grid-game .kiwi-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-apple:checked ~ main .grid-game .apple-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-apple:checked ~ main .grid-game .apple-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-watermelon:checked ~ main .grid-game .watermelon-loseorange{
+  z-index: 3;
+  opacity: 1;
+}
+#loseorange-move-watermelon:checked ~ main .grid-game .watermelon-loseorange .card{
+  animation: lost 1.5s;
+}
+#loseorange-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#loseorange-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseorange-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseorange-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseorange-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseorange-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#loseorange-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+/* Losing papaya first game opo yes po opo */
+#losepapaya-move-banana:checked ~ main .grid-game .banana-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-banana:checked ~ main .grid-game .banana-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-lemon:checked ~ main .grid-game .lemon-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-lemon:checked ~ main .grid-game .lemon-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-strawberry:checked ~ main .grid-game .strawberry-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-strawberry:checked ~ main .grid-game .strawberry-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-kiwi:checked ~ main .grid-game .kiwi-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-kiwi:checked ~ main .grid-game .kiwi-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-kiwi:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-apple:checked ~ main .grid-game .apple-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-apple:checked ~ main .grid-game .apple-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-watermelon:checked ~ main .grid-game .watermelon-losepapaya{
+  z-index: 3;
+  opacity: 1;
+}
+#losepapaya-move-watermelon:checked ~ main .grid-game .watermelon-losepapaya .card{
+  animation: lost 1.5s;
+}
+#losepapaya-move-watermelon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losepapaya-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losepapaya-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losepapaya-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losepapaya-move-kiwi:checked ~ main .grid-game .kiwi-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losepapaya-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losepapaya-move-watermelon:checked ~ main .grid-game .watermelon-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+/* Losing kiwi first game opo yes po opo */
+#losekiwi-move-banana:checked ~ main .grid-game .banana-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-banana:checked ~ main .grid-game .banana-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-lemon:checked ~ main .grid-game .lemon-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-lemon:checked ~ main .grid-game .lemon-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-strawberry:checked ~ main .grid-game .strawberry-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-strawberry:checked ~ main .grid-game .strawberry-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-orange:checked ~ main .grid-game .orange-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-orange:checked ~ main .grid-game .orange-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-apple:checked ~ main .grid-game .apple-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-apple:checked ~ main .grid-game .apple-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-papaya:checked ~ main .grid-game .papaya-losekiwi{
+  z-index: 3;
+  opacity: 1;
+}
+#losekiwi-move-papaya:checked ~ main .grid-game .papaya-losekiwi .card{
+  animation: lost 1.5s;
+}
+#losekiwi-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losekiwi-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losekiwi-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losekiwi-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losekiwi-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losekiwi-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losekiwi-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+/* Losing watermelon first game opo yes po opo */
+#losewatermelon-move-banana:checked ~ main .grid-game .banana-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-banana:checked ~ main .grid-game .banana-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-banana:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-lemon:checked ~ main .grid-game .lemon-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-lemon:checked ~ main .grid-game .lemon-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-lemon:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-strawberry:checked ~ main .grid-game .strawberry-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-strawberry:checked ~ main .grid-game .strawberry-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-strawberry:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-orange:checked ~ main .grid-game .orange-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-orange:checked ~ main .grid-game .orange-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-orange:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-apple:checked ~ main .grid-game .apple-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-apple:checked ~ main .grid-game .apple-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-apple:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-papaya:checked ~ main .grid-game .papaya-losewatermelon{
+  z-index: 3;
+  opacity: 1;
+}
+#losewatermelon-move-papaya:checked ~ main .grid-game .papaya-losewatermelon .card{
+  animation: lost 1.5s;
+}
+#losewatermelon-move-papaya:checked ~ main .grid-game .first-moves{
+  z-index: 4;
+  transition: z-index 0.00001s 1.5s;
+}
+#losewatermelon-move-banana:checked ~ main .grid-game .banana-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losewatermelon-move-lemon:checked ~ main .grid-game .lemon-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losewatermelon-move-strawberry:checked ~ main .grid-game .strawberry-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losewatermelon-move-orange:checked ~ main .grid-game .orange-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losewatermelon-move-apple:checked ~ main .grid-game .apple-first{
+  animation: first-moves-opacity 1.5s;
+}
+#losewatermelon-move-papaya:checked ~ main .grid-game .papaya-first{
+  animation: first-moves-opacity 1.5s;
+}
+
+
+.first-game{
+  display: grid;
+}
+.second-game{
+  display: none;
+}
+.third-game{
+  display: none;
+}
+
+#first-match:checked ~ main .playgame .first-game{
+  display: grid;
+}
+#second-match:checked ~ main .playgame .second-game{
+  display: grid;
+}
+#second-match:checked ~ main .playgame .first-game{
+  display: none;
+}
+#third-match:checked ~ main .playgame .third-game{
+  display: grid;
+}
+#third-match:checked ~ main .playgame .first-game{
+  display: none;
+}
+#first-match:checked ~ main .grid-game .first-moves .card{
+  animation: see 2s 0.5s;
+}
+#second-match:checked ~ main .grid-game .first-moves .card{
+  animation: see 2s 0.5s;
+}
+#third-match:checked ~ main .grid-game .first-moves .card{
+  animation: see 2s 0.5s;
+}
+
+#first-match:checked ~ main{
+  transform: translateX(-50%);
+}
+#second-match:checked ~ main{
+  transform: translateX(-50%);
+}
+#third-match:checked ~ main{
+  transform: translateX(-50%);
+}
